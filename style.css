@@ -1,17 +1,23 @@
 * {
+  box-sizing: border-box;
   border: 1px dashed red;
 }
 
 body {
-  height: 96vh;
-  width: 96vw;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto;
 }
 
 #main-container {
   height: 100%;
+  width: 100%;
   max-width: 1400px;
   display: grid;
   grid-template-rows: 1fr 9fr;
+  justify-self: center;
 }
 
 #header {
@@ -35,7 +41,7 @@ body {
   color: white;
 }
 
-#new-book {
+.btn {
   border-radius: 10px;
   border: 2px solid white;
   color: white;
@@ -59,4 +65,45 @@ body {
   border-radius: 20px;
   background-color: #9fb2c6;
   color: black;
+}
+
+/*-------------Modal-------------*/
+
+#book-modal {
+  display: grid;
+  grid-template-rows: 1fr 6fr;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-200px, -300px);
+  height: 600px;
+  width: 400px;
+}
+
+#modal-header {
+  grid-row: 1/2;
+  width: 100%;
+  background-color: #0d243f;
+  text-align: center;
+  color: white;
+}
+
+#modal-body {
+  grid-row: 2/3;
+  display: grid;
+  grid-template-rows: auto;
+  justify-content: space-between;
+  align-content: center;
+  color: black;
+  background-color: #9fb2c6;
+}
+
+.modal-input {
+  align-self: center;
+  width: 250px;
+  height: 60px;
+  border-radius: 20px;
+  border: solid 2px black;
+  color: black;
+  outline: none;
 }
