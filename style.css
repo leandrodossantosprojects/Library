@@ -68,16 +68,14 @@ body {
 }
 
 /*-------------Modal-------------*/
+#modal {
+  padding: 0;
+  border: 1px solid #0d243f;
+  border-radius: 10px;
+}
 
-#book-modal {
-  display: grid;
-  grid-template-rows: 1fr 6fr;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-200px, -300px);
-  height: 600px;
-  width: 400px;
+#modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 #modal-header {
@@ -91,19 +89,36 @@ body {
 #modal-body {
   grid-row: 2/3;
   display: grid;
-  grid-template-rows: auto;
-  justify-content: space-between;
+  grid-template-rows: autofit(1fr);
+  justify-content: space-around;
   align-content: center;
+  gap: 10px;
   color: black;
   background-color: #9fb2c6;
+  padding: 10px;
 }
 
 .modal-input {
   align-self: center;
   width: 250px;
-  height: 60px;
-  border-radius: 20px;
+  height: 40px;
+  border-radius: 10px;
   border: solid 2px black;
   color: black;
   outline: none;
+  padding: 5px;
+}
+
+#bookName {
+  margin-top: 30px;
+}
+
+#required-inputs {
+  color: darkred;
+  font-size: 12px;
+}
+
+#modal-btn {
+  margin: 0;
+  justify-self: center;
 }
