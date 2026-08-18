@@ -18,6 +18,47 @@
         </div>
       </div>
     </div>
+    <dialog id="modal">
+      <div id="modal-header">
+        <h2>Book information</h2>
+      </div>
+      <div id="modal-body">
+        <input
+          type="text"
+          name="name"
+          placeholder="Name of the book here..."
+          class="modal-input"
+          id="bookName"
+          required
+        />
+        <input
+          type="text"
+          name="author"
+          placeholder="Author of the book here..."
+          class="modal-input"
+          id="bookAuthor"
+          required
+        />
+        <input
+          type="number"
+          name="pages"
+          placeholder="Pages of the book here..."
+          class="modal-input"
+          id="bookPages"
+          required
+        />
+        <input
+          type="text"
+          name="genre"
+          placeholder="Genre of the book here..."
+          class="modal-input"
+          id="bookGenre"
+          required
+        />
+        <p id="required-inputs">*All inputs required</p>
+        <button type="submit" class="btn" id="modal-btn">Add book</button>
+      </div>
+    </dialog>
     <script src="./script.js"></script>
   </body>
 </html>
