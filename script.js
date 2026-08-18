@@ -1,65 +1,15 @@
 //DOM elements management
 const mainContainer = document.querySelector("#main-container");
 const newBookBtn = document.querySelector("#new-book");
-const modal = document.createElement("div");
-const bookName = document.createElement("input");
-const bookAuthor = document.createElement("input");
-const bookPages = document.createElement("input");
-const bookGenre = document.createElement("input");
-const addBtn = document.createElement("button");
-const modalHeader = document.createElement("div");
-const modalBody = document.createElement("div");
-const requiredText = document.createElement("p");
-
-Object.assign(bookName, {
-  type: "text",
-  name: "bookName",
-  placeholder: "Book name here...",
-  class: "modal-input",
-});
-
-Object.assign(bookAuthor, {
-  type: "text",
-  name: "bookAuthor",
-  placeholder: "Author name here...",
-  class: "modal-input",
-});
-
-Object.assign(bookPages, {
-  type: "number",
-  name: "bookPages",
-  placeholder: "Pages here...",
-  class: "modal-input",
-});
-
-Object.assign(bookGenre, {
-  type: "text",
-  name: "bookGenre",
-  placeholder: "Book genre here...",
-  class: "modal-input",
-});
-
-Object.assign(addBtn, {
-  class: "btn",
-  textContent: "Add book",
-});
-
-Object.assign(modal, {
-  id: "book-modal",
-});
-
-Object.assign(modalHeader, {
-  id: "modal-header",
-  textContent: "Add book to library",
-});
-
-Object.assign(modalBody, {
-  id: "modal-body",
-});
-
-Object.assign(requiredText, {
-  id: "requiredText",
-});
+const modal = document.querySelector("#modal");
+const bookName = document.querySelector("#bookName");
+const bookAuthor = document.querySelector("#bookAuthor");
+const bookPages = document.querySelector("#bookPages");
+const bookGenre = document.querySelector("#bookGenre");
+const addBtn = document.querySelector("#modal-btn");
+const modalHeader = document.querySelector("#modal-header");
+const modalBody = document.querySelector("#modal-body");
+const requiredText = document.querySelector("#required-inputs");
 
 //Book creation and library logic
 function Book(name, author, pages, genre) {
@@ -79,22 +29,21 @@ function submitBook() {
 
   let newBook = new Book(name, author, pages, genre);
   library.push(newBook);
+
+  bookName.value = "";
+  bookAuthor.value = "";
+  bookPages.value = "";
+  bookGenre.value = "";
+  console.log(library);
 }
 
 newBookBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  modal.appendChild(modalHeader);
-  modal.appendChild(modalBody);
-  modalBody.appendChild(bookName);
-  modalBody.appendChild(bookAuthor);
-  modalBody.appendChild(bookPages);
-  modalBody.appendChild(bookGenre);
-  modalBody.appendChild(requiredText);
-  modalBody.appendChild(addBtn);
-  mainContainer.appendChild(modal);
+  modal.showModal();
+});
 
-  addBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    alert("addBtn clicked");
-  });
+addBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  submitBook();
+  modal.close();
 });
