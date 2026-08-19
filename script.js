@@ -71,12 +71,20 @@ function insertData(i) {
 
   deleteBtn.className = "btn delete-btn";
   deleteBtn.innerText = "Delete";
+
+  deleteBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let title = cardTitle.innerText;
+    let bookIndex = library.findIndex((book) => book.name === title);
+    library.splice(bookIndex, 1);
+    card.remove();
+  });
 }
 
-function appendCard() {
+/*function appendCard() {
   let lastIndex = library.length - 1;
   insertData(library.at(lastIndex));
-}
+}*/
 
 function submitBook() {
   let name = bookName.value;
@@ -91,6 +99,8 @@ function submitBook() {
   bookAuthor.value = "";
   bookPages.value = "";
   bookGenre.value = "";
-  console.log(library);
-  appendCard();
+  mainContent.innerHTML = "";
+  for (let book of library) {
+    insertData(book);
+  }
 }
