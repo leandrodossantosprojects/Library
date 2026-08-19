@@ -47,3 +47,13 @@ addBtn.addEventListener("click", (e) => {
   submitBook();
   modal.close();
 });
+
+// Render cards in container
+
+let card = document.createElement("div");
+let cardHeader = document.createElement("title");
+let cardBody = document.createElement("div");
+let cardAuthor = document.createElement("p");
+let cardPages = document.createElement("p");
+let cardGenre = document.createElement("p");
+let deleteBtn = document.createElement("button");
