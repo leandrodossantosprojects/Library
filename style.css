@@ -95,6 +95,11 @@ body {
   background-color: #0d243f;
   text-align: center;
   color: white;
+  padding: 20px;
+}
+
+#modal-header h2 {
+  margin: 0;
 }
 
 #modal-body {
