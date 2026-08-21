@@ -100,7 +100,9 @@ function insertData(i) {
     let title = cardTitle.innerText;
     let bookIndex = library.findIndex((book) => book.name === title);
     library.splice(bookIndex, 1);
-    card.remove();
+    card.style.animationName = "deleteAnimation";
+    card.style.animationDuration = "4s";
+    card.addEventListener("animationend", () => card.remove());
   });
 }
 

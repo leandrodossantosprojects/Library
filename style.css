@@ -210,3 +210,12 @@ body {
 .read-btn:active {
   background-color: darkblue;
 }
+
+@keyframes deleteAnimation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
