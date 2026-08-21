@@ -99,7 +99,7 @@ function insertData(i) {
     e.preventDefault();
     let title = cardTitle.innerText;
     let bookIndex = library.findIndex((book) => book.name === title);
-    library.splice(bookIndex, 1);
+    if (bookIndex !== -1) library.splice(bookIndex, 1);
     card.style.animationName = "deleteAnimation";
     card.style.animationDuration = "4s";
     card.addEventListener("animationend", () => card.remove());
