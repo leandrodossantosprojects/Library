@@ -18,7 +18,7 @@ function Book(name, author, pages) {
   this.name = name;
   this.author = author;
   this.pages = pages;
-  this.read = "No read yet";
+  this.read = false;
 }
 
 const library = [];
@@ -38,6 +38,11 @@ addBtn.addEventListener("click", (e) => {
   }
 });
 
+// Read function
+Book.prototype.markRead = function () {
+  this.read ^= true;
+};
+
 // Render cards in container
 
 function insertData(i) {
@@ -48,14 +53,16 @@ function insertData(i) {
   let cardAuthor = document.createElement("p");
   let cardPages = document.createElement("p");
   let cardRead = document.createElement("p");
+  let btnContainer = document.createElement("div");
   let deleteBtn = document.createElement("button");
+  let readBtn = document.createElement("button");
   cardHeader.appendChild(cardTitle);
   cardBody.appendChild(cardAuthor);
   cardBody.appendChild(cardPages);
   cardBody.appendChild(cardRead);
-  cardBody.appendChild(deleteBtn);
-  card.appendChild(cardHeader);
-  card.appendChild(cardBody);
+  cardBody.appendChild(btnContainer);
+  btnContainer.appendChild(readBtn);
+  btnContainer.appendChild(deleteBtn);
   card.appendChild(cardHeader);
   card.appendChild(cardBody);
   mainContent.appendChild(card);
@@ -63,14 +70,30 @@ function insertData(i) {
   cardTitle.textContent = `${i.name}`;
   cardAuthor.textContent = `Author: ${i.author}`;
   cardPages.textContent = `Pages: ${i.pages}`;
-  cardRead.textContent = `Genre: ${i.genre}`;
 
   card.className = "card";
   cardHeader.className = "card-header";
   cardBody.className = "card-body";
-
+  btnContainer.className = "btn-container";
+  readBtn.className = "btn read-btn";
+  readBtn.innerText = "Toggle read";
   deleteBtn.className = "btn delete-btn";
   deleteBtn.innerText = "Delete";
+
+  // first display read status and next changed in button listener
+  function displayRead() {
+    if (i.read === 1) {
+      cardRead.innerText = "Already read";
+    } else cardRead.innerText = "Not read yet";
+  }
+
+  displayRead();
+
+  readBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    i.markRead();
+    displayRead();
+  });
 
   deleteBtn.addEventListener("click", (e) => {
     e.preventDefault();
