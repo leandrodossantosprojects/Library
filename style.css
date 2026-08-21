@@ -186,9 +186,27 @@ body {
   margin-left: 10px;
 }
 
+.btn-container {
+  display: flex;
+  justify-content: space-around;
+}
+
 .delete-btn {
   font-size: 1em;
   font-weight: 600;
-  justify-self: center;
   background-color: red;
+}
+
+.read-btn {
+  font-size: 0.7em;
+  font-weight: 600;
+  background-color: lightblue;
+}
+
+.delete-btn:active {
+  background-color: darkred;
+}
+
+.read-btn:active {
+  background-color: darkblue;
 }
