@@ -6,7 +6,7 @@ const modal = document.querySelector("#modal");
 const bookName = document.querySelector("#bookName");
 const bookAuthor = document.querySelector("#bookAuthor");
 const bookPages = document.querySelector("#bookPages");
-const bookGenre = document.querySelector("#bookGenre");
+const bookRead = document.querySelector("#bookGenre");
 const addBtn = document.querySelector("#modal-btn");
 const modalHeader = document.querySelector("#modal-header");
 const modalBody = document.querySelector("#modal-body");
@@ -14,11 +14,11 @@ const requiredText = document.querySelector("#required-inputs");
 const emptyLibrary = document.querySelector("#empty-library");
 
 //Book creation and library logic
-function Book(name, author, pages, genre) {
+function Book(name, author, pages) {
   this.name = name;
   this.author = author;
   this.pages = pages;
-  this.genre = genre;
+  this.read = "No read yet";
 }
 
 const library = [];
@@ -47,12 +47,12 @@ function insertData(i) {
   let cardTitle = document.createElement("p");
   let cardAuthor = document.createElement("p");
   let cardPages = document.createElement("p");
-  let cardGenre = document.createElement("p");
+  let cardRead = document.createElement("p");
   let deleteBtn = document.createElement("button");
   cardHeader.appendChild(cardTitle);
   cardBody.appendChild(cardAuthor);
   cardBody.appendChild(cardPages);
-  cardBody.appendChild(cardGenre);
+  cardBody.appendChild(cardRead);
   cardBody.appendChild(deleteBtn);
   card.appendChild(cardHeader);
   card.appendChild(cardBody);
@@ -63,7 +63,7 @@ function insertData(i) {
   cardTitle.textContent = `${i.name}`;
   cardAuthor.textContent = `Author: ${i.author}`;
   cardPages.textContent = `Pages: ${i.pages}`;
-  cardGenre.textContent = `Genre: ${i.genre}`;
+  cardRead.textContent = `Genre: ${i.genre}`;
 
   card.className = "card";
   cardHeader.className = "card-header";
@@ -81,24 +81,17 @@ function insertData(i) {
   });
 }
 
-/*function appendCard() {
-  let lastIndex = library.length - 1;
-  insertData(library.at(lastIndex));
-}*/
-
 function submitBook() {
   let name = bookName.value;
   let author = bookAuthor.value;
   let pages = bookPages.value;
-  let genre = bookGenre.value;
 
-  let newBook = new Book(name, author, pages, genre);
+  let newBook = new Book(name, author, pages);
   library.push(newBook);
 
   bookName.value = "";
   bookAuthor.value = "";
   bookPages.value = "";
-  bookGenre.value = "";
   mainContent.innerHTML = "";
   for (let book of library) {
     insertData(book);
