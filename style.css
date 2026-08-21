@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box;
-  border: 1px dashed red;
 }
 
 body {
@@ -200,7 +199,7 @@ body {
 .read-btn {
   font-size: 0.7em;
   font-weight: 600;
-  background-color: lightblue;
+  background-color: #0761b0;
 }
 
 .delete-btn:active {
@@ -208,7 +207,7 @@ body {
 }
 
 .read-btn:active {
-  background-color: darkblue;
+  background-color: #053e71;
 }
 
 @keyframes deleteAnimation {
