@@ -14,11 +14,16 @@ const requiredText = document.querySelector("#required-inputs");
 const emptyLibrary = document.querySelector("#empty-library");
 
 //Book creation and library logic
-function Book(name, author, pages) {
-  this.name = name;
-  this.author = author;
-  this.pages = pages;
-  this.read = false;
+class Book {
+  constructor(name, author, pages) {
+    this.name = name;
+    this.author = author;
+    this.pages = pages;
+    this._read = false;
+  }
+
+  get read() { return this._read; }
+  set read(v) { this._read = v; }
 }
 
 const library = [];
@@ -38,71 +43,54 @@ addBtn.addEventListener("click", (e) => {
   }
 });
 
-// Read function
-Book.prototype.markRead = function () {
-  this.read ^= true;
-};
-
 // Render cards in container
-
-function insertData(i) {
-  let card = document.createElement("div");
-  let cardHeader = document.createElement("div");
-  let cardBody = document.createElement("div");
-  let cardTitle = document.createElement("p");
-  let cardAuthor = document.createElement("p");
-  let cardPages = document.createElement("p");
-  let cardRead = document.createElement("p");
-  let btnContainer = document.createElement("div");
-  let deleteBtn = document.createElement("button");
-  let readBtn = document.createElement("button");
-  cardHeader.appendChild(cardTitle);
-  cardBody.appendChild(cardAuthor);
-  cardBody.appendChild(cardPages);
-  cardBody.appendChild(cardRead);
-  cardBody.appendChild(btnContainer);
-  btnContainer.appendChild(readBtn);
-  btnContainer.appendChild(deleteBtn);
-  card.appendChild(cardHeader);
-  card.appendChild(cardBody);
-  mainContent.appendChild(card);
-
-  cardTitle.textContent = `${i.name}`;
-  cardAuthor.textContent = `Author: ${i.author}`;
-  cardPages.textContent = `Pages: ${i.pages}`;
-
-  card.className = "card";
-  cardHeader.className = "card-header";
-  cardBody.className = "card-body";
-  btnContainer.className = "btn-container";
-  readBtn.className = "btn read-btn";
-  readBtn.innerText = "Toggle read";
-  deleteBtn.className = "btn delete-btn";
-  deleteBtn.innerText = "Delete";
-
-  // first display read status and next changed in button listener
-  function displayRead() {
-    if (i.read === 1) {
-      cardRead.innerText = "Already read";
-    } else cardRead.innerText = "Not read yet";
+class Card extends HTMLElement {
+  constructor() {
+    super();
+    this.innerHTML = `
+      <div class="card">
+        <div class="card-header">
+          <p class="name"></p>
+        </div>
+        <div class="card-body">
+          <p class="author"></p>
+          <p class="pages"></p>
+          <p class="read-status"></p>
+          <div class="btn-container">
+            <button class="btn read-btn">Toggle read</button>
+            <button class="btn delete-btn">Delete</button>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
-  displayRead();
+  set data({ name, author, pages, read }) {
+    this.querySelector(".name").textContent = name;
+    this.querySelector(".author").textContent = author;
+    this.querySelector(".pages").textContent = pages;
+    this.querySelector(".read-status").textContent = read;
+  }
+}
 
-  readBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    i.markRead();
-    displayRead();
-  });
+customElements.define("book-card", Card);
 
-  deleteBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    let title = cardTitle.innerText;
-    let bookIndex = library.findIndex((book) => book.name === title);
-    if (bookIndex !== -1) library.splice(bookIndex, 1);
-    card.style.animationName = "deleteAnimation";
-    card.style.animationDuration = "4s";
-    card.addEventListener("animationend", () => card.remove());
+function createLibrary() {
+  library.forEach((book) => {
+    const card = document.createElement("book-card");
+    card.data = book;
+    mainContent.appendChild(card);
+
+    card.querySelector(".read-btn").addEventListener("click", () => {
+      book.read = !book.read;
+      card.querySelector(".read-status").textContent = book.read;
+    });
+
+    card.querySelector(".delete-btn").addEventListener("click", () => {
+      const index = library.indexOf(book);
+      if (index > -1) library.splice(index, 1);
+      card.remove();
+    });
   });
 }
 
@@ -118,7 +106,5 @@ function submitBook() {
   bookAuthor.value = "";
   bookPages.value = "";
   mainContent.innerHTML = "";
-  for (let book of library) {
-    insertData(book);
-  }
+  createLibrary();
 }
