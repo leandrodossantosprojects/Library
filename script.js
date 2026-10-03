@@ -71,6 +71,7 @@ class Card extends HTMLElement {
       </div>
     `;
   }
+}
 
   set data({ name, author, pages, read }) {
     this.querySelector(".name").textContent = name;
